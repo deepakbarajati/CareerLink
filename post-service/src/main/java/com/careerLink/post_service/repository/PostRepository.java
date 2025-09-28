@@ -1,4 +1,12 @@
 package com.careerLink.post_service.repository;
 
-public interface PostRepository extends org.springframework.data.jpa.repository.JpaRepository<com.careerLink.post_service.entity.Post, java.lang.Long> {
-  }
+import com.careerLink.post_service.entity.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface PostRepository extends JpaRepository<Post, Long> {
+
+
+    List<Post> findByUserId(Long userId);
+}

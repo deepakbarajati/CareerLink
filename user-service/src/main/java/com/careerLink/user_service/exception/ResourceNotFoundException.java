@@ -1,4 +1,4 @@
-package com.careerLink.post_service.exception;
+package com.careerLink.user_service.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

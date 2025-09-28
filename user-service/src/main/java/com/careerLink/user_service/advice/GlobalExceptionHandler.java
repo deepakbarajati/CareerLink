@@ -1,7 +1,7 @@
-package com.careerLink.post_service.advice;
+package com.careerLink.user_service.advice;
 
-import com.careerLink.post_service.exception.BadRequestException;
-import com.careerLink.post_service.exception.ResourceNotFoundException;
+import com.careerLink.user_service.exception.BadRequestException;
+import com.careerLink.user_service.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package com.careerLink.post_service.advice;
+package com.careerLink.user_service.advice;
 
 import lombok.Data;
 
