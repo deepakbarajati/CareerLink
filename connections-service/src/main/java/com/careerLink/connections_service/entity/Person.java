@@ -1,7 +1,5 @@
 package com.careerLink.connections_service.entity;
 
-
-
 import lombok.Data;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -18,6 +16,4 @@ public class Person {
     private Long userId;
 
     private String name;
-
-
 }

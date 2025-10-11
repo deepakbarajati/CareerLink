@@ -2,6 +2,8 @@ spring:
   application:
     name: api-gateway
 
+
+
   cloud:
     gateway:
       routes:
@@ -18,13 +20,18 @@ spring:
             - Path=/api/v1/posts/**
           filters:
             - StripPrefix=2
-
+            - name: AuthenticationFilter
         - id: connections-service
           uri: lb://CONNECTIONS-SERVICE
           predicates:
             - Path=/api/v1/connections/**
           filters:
             - StripPrefix=2
+            - name: AuthenticationFilter
+
+
+jwt:
+  secretKey: afjkaljlfjalaklflkalkdnlakalkfdlnfjaowif
 
 server:
   port: 8080

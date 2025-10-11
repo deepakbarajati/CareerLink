@@ -1,5 +1,6 @@
 package com.careerLink.connections_service.service;
 
+import com.careerLink.connections_service.auth.UserContextHolder;
 import com.careerLink.connections_service.entity.Person;
 import com.careerLink.connections_service.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +9,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@Service
 @Slf4j
 public class ConnectionsService {
 
     private final PersonRepository personRepository;
 
-    public List<Person> getFirstDegreeConnections(Long userId){
-        log.info("Getting first degree connections for user with id: {}",userId);
+    public List<Person> getFirstDegreeConnections() {
+        Long userId = UserContextHolder.getCurrentUserId();
+        log.info("Getting first degree connections for user with id: {}", userId);
+
         return personRepository.getFirstDegreeConnections(userId);
     }
+
 }
+
