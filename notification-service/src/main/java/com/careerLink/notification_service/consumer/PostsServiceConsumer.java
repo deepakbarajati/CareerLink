@@ -4,6 +4,7 @@ import com.careerLink.notification_service.clients.ConnectionsClient;
 import com.careerLink.notification_service.dto.PersonDto;
 import com.careerLink.notification_service.entity.Notification;
 import com.careerLink.notification_service.repository.NotificationRepository;
+import com.careerLink.notification_service.service.SendNotification;
 import com.careerLink.post_service.event.PostCreatedEvent;
 import com.careerLink.post_service.event.PostLikedEvent;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PostsServiceConsumer {
 
     private final ConnectionsClient connectionsClient;
-    private final NotificationRepository notificationRepository;
+    private final SendNotification sendNotification;
 
     @KafkaListener(topics = "post-created-topic")
     public void handlePostCreated(PostCreatedEvent postCreatedEvent){
@@ -27,7 +28,7 @@ public class PostsServiceConsumer {
         List<PersonDto> connections= connectionsClient.getFirstConnections(postCreatedEvent.getCreatorId());
 
         for(PersonDto connection:connections){
-            sendNotification(connection.getUserId(),"Your Connection "+postCreatedEvent.getCreatorId()+" has created " +
+            sendNotification.send(connection.getUserId(),"Your Connection "+postCreatedEvent.getCreatorId()+" has created " +
                     "a post, Check it out");
         }
 
@@ -40,15 +41,8 @@ public class PostsServiceConsumer {
         String message = String.format("Your post ,%d has been liked by %d",postLikedEvent.getPostId(),
                 postLikedEvent.getLikedByUserId());
 
-        sendNotification(postLikedEvent.getCreatorId(), message);
+        sendNotification.send(postLikedEvent.getCreatorId(), message);
     }
 
-    public void sendNotification(Long userId, String message){
 
-        Notification notification = new Notification();
-        notification.setUserId(userId);
-        notification.setMessage(message);
-
-        notificationRepository.save(notification);
-    }
 }
